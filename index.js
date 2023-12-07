@@ -1,23 +1,27 @@
 const { Client, GatewayIntentBits } = require('discord.js');
 const fs = require('fs');
 const dotenv = require('dotenv');
+const mysql = require('mysql');
 const client = new Client({ 
   intents: [
     GatewayIntentBits.Guilds,
     GatewayIntentBits.GuildMessages,
     GatewayIntentBits.MessageContent,
     GatewayIntentBits.GuildMembers,
-    ] 
+    ]
 })
-const { connectToDatabase } = require('./db/db_connection');
 
+
+//memanggil dotenv module
 dotenv.config();
+
+//membuat token yang diambil dari .env
 const token = process.env.DISCORD_TOKEN;
 
-//prefix
+//prefix yg digunakan
 const PREFIX = '/';
 
-// Load commands
+// Meload Commands (map)
 client.commands = new Map();
 
 const loadCommands = (folderPath, client) => {
@@ -33,50 +37,41 @@ const loadCommands = (folderPath, client) => {
   }
 };
 
-// Load commands from the "economy" folder
+// Memanggil seluruh commands yang berada di folder economy
 loadCommands('./economy', client);
-// Load commands from the "combat" folder
+
+// memanggil seluruh commands yang berada di foldet combat
 loadCommands('./combat', client);
 
-//comannds awal player memulai petualangan
+//membuat function message agar terhubung tiap tiap folder
 client.on('messageCreate', async (message) => {
-  try {
-    if (!message.content.startsWith(PREFIX) || message.author.bot) return;
+    try {
+        if (!message.content.startsWith(PREFIX) || message.author.bot) return;
 
-    const args = message.content.slice(PREFIX.length).trim().split(/ +/);
-    const commandName = args.shift().toLowerCase();
+        const args = message.content.slice(PREFIX.length).trim().split(/ +/);
+        const commandName = args.shift().toLowerCase();
 
-    if (commandName === 'start') {
-      const connection = await connectToDatabase();
-      
-      // ... (kode lainnya)
+        if (!client.commands.has(commandName)) return;
 
-      await connection.execute('INSERT INTO players (user_id, balance, inventory, health, exp, level) VALUES (?, ?, CAST(? AS JSON), ?, ?, ?)',
-        [message.author.id, 1000000, '[]', 100, 0, 1]);
-      
-      // ... (kode lainnya)
+        const command = client.commands.get(commandName);
 
-      connection.end();
+        command.execute(message, args);
+
+    } catch (error) {
+        console.error('Error in messageCreate event:', error);
     }
-
-    if (!client.commands.has(commandName)) return;
-
-    const command = client.commands.get(commandName);
-
-    command.execute(message, args);
-
-  } catch (error) {
-    console.error('Error in messageCreate event:', error);
-  }
 });
 
 
+//apakah client bot sudah siap?
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
 });
 
+//Jika ada error di client bot maka ini tampil
 client.on('error', (error) => {
   console.error('Unhandled error:', error);
 });
 
+//menjalankan bot
 client.login(token);
