@@ -7,16 +7,26 @@
 - Usahakan selalu menambahkan *console.log(contoh)* hal yg dibuat untuk debbugging
 - Jelaskan detail apa yg kamu buat diatas kodingan mu contoh:
 > //membuat hunting (07/12/2023)
+>
 > function hunt () => {
 >  const hunt = 'Membunuh'
 > }
+>
 > console.log(hunt)
+
 - Pastikan untuk selalu Pull Request github setelah mengerjakan sesuatu.
 - Pull request dilakukan agar mencegah tidak terjadinya konflik codingan
 
 # Notes 2
 - Jika Sedang melakukan Debbuging harap tidak secara bersamaan menjalanlan bot. agar tidak terjadi botnya bentrok
 - Pahamilah alur yang dibuat, buatlah kodingan semudah mungkin agar bisa mudah dipahami
+
+# INFORMASI GITHUB
+- pastikan ketika sudah clone gunakan baranch sendiri jangan gunakan branch master, agar tidak bentrok saat di git push nanti
+- git branch <nama branch mu>
+- git checkout <ke branch mu>
+- git branch // untuk mengecek kamu ada di branch mana?
+- jangan pernah sentuh branch master / main. (nanti sudah final baru kita push semuanya ke main)
 
 # Perhatian!!!
 - Selalu Lakukan Daily reports di reports.txt yang sudah dibuat dan jelaskan secara simpel menambahkan fitur apa, ditanggal berapa, work atau pending
