@@ -26,6 +26,3 @@
 
 # Notes 2
  Pahamilah alur yang dibuat, buatlah kodingan semudah mungkin agar bisa mudah dipahami
-
-# INFORMASI GITHUB
- pastikan ketika sudah clone gunakan baranch sendiri jangan gunakan branch master, agar tidak bentrok saat di git push nanti
