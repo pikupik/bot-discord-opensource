@@ -39,9 +39,12 @@ const loadCommands = (folderPath, client) => {
 
 // Memanggil seluruh commands yang berada di folder economy
 loadCommands('./economy', client);
-
 // memanggil seluruh commands yang berada di foldet combat
 loadCommands('./combat', client);
+//memanggil seluruh commands yang berada di folder info
+loadCommands('./info', client);
+//memanggil seluruh commands yg berada di folder cmd
+loadCommands('./cmd', client);
 
 //membuat function message agar terhubung tiap tiap folder
 client.on('messageCreate', async (message) => {
